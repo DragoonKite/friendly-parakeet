@@ -31,16 +31,25 @@ function generatePassword(){
   var charOptions = ["l", "u", "b"];
   function characterCaseChecker(){
     var alphaCase = window.prompt("Would you like only lowercase letters, only uppercase letters, or both? Please enter l, U, or b.").toLowerCase();
+    //verifys input matches to one of the three options
     if (!charOptions.includes(alphaCase)){
       window.alert("Sorry, your input was not accepted. Please select one of three options.")
       characterCaseChecker();
+    }
+    //verifys choice. Calls itself if they change their mind
+    else{
+      if(!(window.confirm("You entered " + alphaCase + ". Press okay to continue or cancel to change your choice."))){
+        characterCaseChecker();
+      }
     }
     return(alphaCase);
   }
   var chosenCase = characterCaseChecker();
   
+  //asks if the user wants to include numbers 
   function numbersChecker(){
     var num = window.prompt("Would you like to include numbers? Please enter 'n' to include numbers or anything else to not.").toLowerCase();
+    //verifys input. If they change their mind it calls itself
     if (!(num === 'n')){
       if(window.confirm("Please verify to not include numbers.")){
         window.alert("Okay, no numbers for you.")
@@ -56,8 +65,10 @@ function generatePassword(){
   }
   var chosenNum = numbersChecker();
 
+  //asks if the user wants to include special characters
   function specialChecker(){
     var spec = window.prompt("Would you like to include special characters? Please enter 's' to include special characters or anything else to not.").toLowerCase();
+    //verifys input. If they change their mind it calls itself
     if (!(spec === 's')){
       if(window.confirm("Please verify to not include special characters.")){
         window.alert("Okay, no special characters for you.")
@@ -75,6 +86,7 @@ function generatePassword(){
 
   possibleVariables="";
 
+  // adss together the possible character choices dependent on user input
   switch(chosenCase){
     case "l": possibleVariables += alpha[0]; break;
     case "u": possibleVariables += alpha[1]; break;
@@ -88,12 +100,19 @@ function generatePassword(){
   if (chosenSpec === 's'){
     possibleVariables += special.join('');
   }
-
   console.log(possibleVariables);
 
-  for (i=0; i<chosenLength; i++) {
+  var newpassword = "";
 
+  //goes through and adds characters to the password one at a time
+  for (i=0; i<chosenLength; i++) {
+    var char = possibleVariables[Math.floor(Math.random()* possibleVariables.length)];
+    console.log(char);
+    newpassword += char;
   }
+
+  //returns generated password
+  return(newpassword);
 }
 
 // Get references to the #generate element
