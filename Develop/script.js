@@ -24,7 +24,8 @@ function generatePassword(){
   
   //list of possible special characters
   var special = ["!", '"', '#', '$', '&', "'", "%", "(", ")", "*", "+", ",", "-", ".", ":", ";", "<", ">", "=", "?", "@", "[", "]", '_', "^", "{", "}", "|"];
-  var alpha = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+  var alphaLower = "abcdefghijklmnopqrstuvwxyz";
+  var alphaUpper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var numbers = "123456789"
 
   //ask for criteria: lowercase/uppercase/numbers/special characters
@@ -84,27 +85,44 @@ function generatePassword(){
   }
   var chosenSpec = specialChecker();
 
-  possibleVariables="";
+  var possibleVariables="";
+  var newpassword = "";
 
-  // adss together the possible character choices dependent on user input
+  // adds together the possible character choices dependent on user input
+  // also adds one of each chosen option to the password to garuntee password meets all selected criteria 
   switch(chosenCase){
-    case "l": possibleVariables += alpha[0]; break;
-    case "u": possibleVariables += alpha[1]; break;
-    default : possibleVariables += (alpha[0] + alpha[1]); break;
+    case "l": 
+      chosenLength -= 1;
+      newpassword += alphaLower[Math.floor(Math.random()* alphaLower.length)];
+      possibleVariables += alphaLower; 
+      break;
+    case "u":randomLength -= 1;
+      chosenLength -= 1;
+      newpassword += alphaUpper[Math.floor(Math.random()* alphaUpper.length)];
+      possibleVariables += alphaUpper; 
+      break;
+    default : 
+    chosenLength -= 2;
+    newpassword += alphaLower[Math.floor(Math.random()* alphaLower.length)];
+    newpassword += alphaUpper[Math.floor(Math.random()* alphaUpper.length)];
+    possibleVariables += (alphaLower + alphaUpper); 
+    break;
   }
 
   if (chosenNum === 'n'){
+    chosenLength -= 1;
+    newpassword += numbers[Math.floor(Math.random()* numbers.length)];
     possibleVariables += numbers;
   }
 
   if (chosenSpec === 's'){
+    chosenLength -= 1;
+    newpassword += special[Math.floor(Math.random()* special.length)];
     possibleVariables += special.join('');
   }
   console.log(possibleVariables);
 
-  var newpassword = "";
-
-  //goes through and adds characters to the password one at a time
+  //goes through and adds remaining characters to the password one at a time
   for (i=0; i<chosenLength; i++) {
     var char = possibleVariables[Math.floor(Math.random()* possibleVariables.length)];
     console.log(char);
