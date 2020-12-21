@@ -31,29 +31,43 @@ function generatePassword(){
   //ask for criteria: lowercase/uppercase/numbers/special characters
   var charOptions = ["l", "u", "b"];
   function characterCaseChecker(){
-    var alphaCase = window.prompt("Would you like only lowercase letters, only uppercase letters, or both? Please enter l, U, or b.").toLowerCase();
+    var alphaCase = window.prompt("Would you like only lowercase letters, only uppercase letters, or both? Please enter l, U, or b.");
+    //checks for null value before converting to lowercase
+    if (alphaCase === null){
+      window.alert("Sorry, your input was not accepted. Please select one of three options.")
+      characterCaseChecker();
+      return(alphaCase);
+    }
+    console.log(alphaCase);
     //verifys input matches to one of the three options
-    if (!charOptions.includes(alphaCase)){
+    if (!charOptions.includes(alphaCase.toLowerCase())){
       window.alert("Sorry, your input was not accepted. Please select one of three options.")
       characterCaseChecker();
     }
     //verifys choice. Calls itself if they change their mind
     else{
-      if(!(window.confirm("You entered " + alphaCase + ". Press okay to continue or cancel to change your choice."))){
+      if(!(window.confirm("You entered " + alphaCase.toLowerCase() + ". Press okay to continue or cancel to change your choice."))){
         characterCaseChecker();
       }
     }
-    return(alphaCase);
+    return(alphaCase.toLowerCase());
   }
   var chosenCase = characterCaseChecker();
   
   //asks if the user wants to include numbers 
   function numbersChecker(){
-    var num = window.prompt("Would you like to include numbers? Please enter 'n' to include numbers or anything else to not.").toLowerCase();
+    var num = window.prompt("Would you like to include numbers? Please enter 'n' to include numbers or anything else to not.");
+    //checks for null value before converting to lowercase
+     if (num === null || num === " "){
+      window.alert("Sorry, your input was not accepted. Please enter an option.")
+       numbersChecker();
+       return(num);
+      }
     //verifys input. If they change their mind it calls itself
-    if (!(num === 'n')){
+    if (!(num.toLowerCase() === 'n')){
       if(window.confirm("Please verify to not include numbers.")){
         window.alert("Okay, no numbers for you.")
+        num = "z";
       }
       else{
         window.alert("Okay, choose again.")
@@ -61,18 +75,25 @@ function generatePassword(){
       }
     }
     else{
-      return(num)
+      return(num.toLowerCase())
     }
   }
   var chosenNum = numbersChecker();
 
   //asks if the user wants to include special characters
   function specialChecker(){
-    var spec = window.prompt("Would you like to include special characters? Please enter 's' to include special characters or anything else to not.").toLowerCase();
+    var spec = window.prompt("Would you like to include special characters? Please enter 's' to include special characters or anything else to not.");
+    //checks for null value before converting to lowercase
+    if (spec === null){
+        window.alert("Sorry, your input was not accepted. Please enter an option.")
+        specialChecker();
+        return(spec);
+      }
     //verifys input. If they change their mind it calls itself
-    if (!(spec === 's')){
+    if (!(spec.toLowerCase() === 's')){
       if(window.confirm("Please verify to not include special characters.")){
-        window.alert("Okay, no special characters for you.")
+        window.alert("Okay, no special characters for you.");
+        spec = "z";
       }
       else{
         window.alert("Okay, choose again.")
@@ -80,7 +101,7 @@ function generatePassword(){
       }
     }
     else{
-      return(spec);
+      return(spec.toLowerCase());
     }
   }
   var chosenSpec = specialChecker();
