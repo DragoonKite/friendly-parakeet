@@ -90,6 +90,8 @@ function generatePassword(){
 
   // adds together the possible character choices dependent on user input
   // also adds one of each chosen option to the password to garuntee password meets all selected criteria 
+
+  // switch case for lower/upper/or both
   switch(chosenCase){
     case "l": 
       chosenLength -= 1;
@@ -109,12 +111,14 @@ function generatePassword(){
     break;
   }
 
+  //section for numbers if selected
   if (chosenNum === 'n'){
     chosenLength -= 1;
     newpassword += numbers[Math.floor(Math.random()* numbers.length)];
     possibleVariables += numbers;
   }
 
+  //section for special characters if selected
   if (chosenSpec === 's'){
     chosenLength -= 1;
     newpassword += special[Math.floor(Math.random()* special.length)];
