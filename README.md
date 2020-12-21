@@ -11,7 +11,9 @@ Add javascript code to given codebase to generate a random password using the us
 ## Contents
 One html file, one CSS style sheet, one JS script file (file containing work)
 
-![Screenshot]()
+https://dragoonkite.github.io/friendly-parakeet/
+
+![Screenshot](./Develop/password-screenshot.PNG)
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DragoonKite/friendly-parakeet)
 
